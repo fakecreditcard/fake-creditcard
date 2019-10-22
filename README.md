@@ -1,5 +1,6 @@
 Fake Credit Card Generator
 ==============
+[![Build Status](https://travis-ci.com/fakecreditcard/fake-creditcard.svg?branch=master)](https://travis-ci.com/fakecreditcard/fake-creditcard)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 
