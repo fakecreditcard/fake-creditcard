@@ -28,7 +28,7 @@ public class FakeCard {
 		this.securityCode = new SecurityCode();
 	}
 
-	public Creditcard createCard() {
+	private Creditcard create() {
 		return Creditcard.builder()
 				.number(brand.generate())
 				.holderName(holderName.getName())
@@ -39,12 +39,12 @@ public class FakeCard {
 				.build();
 	}
 
-	public static FakeCard visa() {
-		return new FakeCard(Brand.VISA);
+	public static Creditcard visa() {
+		return new FakeCard(Brand.VISA).create();
 	}
 
-	public static FakeCard master() {
-		return new FakeCard(Brand.MASTER);
+	public static Creditcard master() {
+		return new FakeCard(Brand.MASTER).create();
 	}
 
 }

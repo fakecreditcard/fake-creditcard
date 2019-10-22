@@ -15,7 +15,7 @@ class FakeCardTest {
 
 	@Test
 	void shouldReturnVisa() {
-		Creditcard card = FakeCard.visa().createCard();
+		Creditcard card = FakeCard.visa();
 		assertNotNull(card.getNumber());
 		assertTrue(luhn.isValid(card.getNumber()));
 		assertNotNull(card.getHolderName());
@@ -25,7 +25,7 @@ class FakeCardTest {
 
 	@Test
 	void shouldReturnMaster() {
-		Creditcard card = FakeCard.master().createCard();
+		Creditcard card = FakeCard.master();
 		assertNotNull(card.getNumber());
 		assertTrue(luhn.isValid(card.getNumber()));
 		assertNotNull(card.getHolderName());
