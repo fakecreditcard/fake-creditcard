@@ -32,7 +32,7 @@ public abstract class AbstractCardGenerator implements CreditCardGenerator {
 	protected abstract int numberCardDigits();
 
 	/**
-	 * Verify if the multiply a digit is necessáry for Luhn validation
+	 * Verify if the multiply a digit is necessary for Luhn validation
 	 * 
 	 * @param index
 	 * 
