@@ -2,6 +2,12 @@ package com.github.fakecreditcard.generator;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Responsible for encapsulate the card during of algorithm is running
+ * 
+ * @author Fernando
+ *
+ */
 public class CardBuilder {
 
 	private StringBuilder acumulator;
@@ -26,12 +32,22 @@ public class CardBuilder {
 		this.sum(digit);
 	}
 
-	public String toCardNumber() {
+	/**
+	 * Build the card number
+	 * 
+	 * @return String card number
+	 */
+	public String build() {
 		int lastDigit = this.getLastDigit();
 		this.add(lastDigit);
 		return acumulator.toString();
 	}
-	
+
+	/**
+	 * Include the last card digit
+	 * 
+	 * @return int last card digit
+	 */
 	private int getLastDigit() {
 		int lastDigit = 10 - (digitSum.get() % 10);
 		if (digitSum.get() % 10 == 0) {
