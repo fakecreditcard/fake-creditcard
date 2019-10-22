@@ -4,7 +4,7 @@ jdk:
 - openjdk8
 script: ./gradlew clean build
 after_success:
-- ./gradlew cobertura coveralls
+- ./gradlew uploadArchives -PnexusUsername="${SONATYPE_USERNAME}" -PnexusPassword="${SONATYPE_PASSWORD}"
 env:
   global:
     - COVERALLS_REPO_TOKEN=${REPO_TOKEN}
