@@ -1,4 +1,6 @@
-package com.github.fakecreditcard.generator;
+package com.github.fakecreditcard.generator.impl;
+
+import com.github.fakecreditcard.generator.AbstractCardGenerator;
 
 public class VisaCardGenerator extends AbstractCardGenerator {
 
@@ -13,7 +15,7 @@ public class VisaCardGenerator extends AbstractCardGenerator {
 	}
 
 	@Override
-	protected int maxRange() {
+	protected int numberCardDigits() {
 		return 14;
 	}
 

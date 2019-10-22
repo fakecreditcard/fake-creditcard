@@ -1,4 +1,7 @@
-package com.github.fakecreditcard.generator;
+package com.github.fakecreditcard.generator.impl;
+
+import com.github.fakecreditcard.generator.AbstractCardGenerator;
+import com.github.fakecreditcard.generator.CardBuilder;
 
 public class MasterCardGenerator extends AbstractCardGenerator {
 
@@ -13,7 +16,7 @@ public class MasterCardGenerator extends AbstractCardGenerator {
 	}
 
 	@Override
-	protected int maxRange() {
+	protected int numberCardDigits() {
 		return 13;
 	}
 
@@ -23,11 +26,11 @@ public class MasterCardGenerator extends AbstractCardGenerator {
 	}
 
 	@Override
-	protected void before() {
-		super.before();
+	protected CardBuilder before() {
+		CardBuilder builder = super.before();
 		int digit = getRandomDigit();
-		appendDigit(digit);
-		sumDigit(digit);
+		builder.addAndSum(digit);
+		return builder;
 	}
 
 }

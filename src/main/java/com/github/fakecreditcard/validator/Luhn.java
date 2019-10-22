@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 /**
  * 
- * @author Fernando
+ * @author Fernando Godoy
  *
  */
 public class Luhn {

@@ -1,5 +1,8 @@
 package com.github.fakecreditcard.generator;
 
+import com.github.fakecreditcard.generator.impl.MasterCardGenerator;
+import com.github.fakecreditcard.generator.impl.VisaCardGenerator;
+
 /**
  * 
  * @author Fernando
