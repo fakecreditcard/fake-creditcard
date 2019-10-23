@@ -1,6 +1,8 @@
 apply plugin: 'maven'
 apply plugin: 'signing'
 
+afterReleaseBuild.dependsOn uploadArchives
+
 signing {
 	sign configurations.archives
 }
