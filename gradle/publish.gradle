@@ -1,45 +1,60 @@
 apply plugin: 'maven'
+apply plugin: 'signing'
+
+signing {
+	sign configurations.archives
+}
+
+task sourcesJar(type: Jar) {
+	archiveClassifier = 'sources'
+	from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar) {
+	archiveClassifier = 'javadoc'
+	from javadoc.destinationDir
+}
 
 uploadArchives {
-  repositories {
-    mavenDeployer {
-      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+	repositories {
+		mavenDeployer {
+			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: System.getenv('SONATYPE_USERNAME'), password: System.getenv('SONATYPE_PASSWORD'))
-      }
+			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+				authentication(userName: System.getenv('SONATYPE_USERNAME'), password: System.getenv('SONATYPE_PASSWORD'))
+			}
 
-      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-        authentication(userName: System.getenv('SONATYPE_USERNAME'), password: System.getenv('SONATYPE_PASSWORD'))
-      }
+			snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+				authentication(userName: System.getenv('SONATYPE_USERNAME'), password: System.getenv('SONATYPE_PASSWORD'))
+			}
 
-      pom.project {
-        name project_name
-        packaging 'jar'
-        description project_description
-        url project_url
+			pom.project {
+				name project_name
+				packaging 'jar'
+				description project_description
+				url project_url
 
-        scm {
-          connection project_scm
-          developerConnection project_scm
-          url project_url
-        }
+				scm {
+					connection project_scm
+					developerConnection project_scm
+					url project_url
+				}
 
-        licenses {
-          license {
-            name project_license_slug
-            url project_license_url
-          }
-        }
+				licenses {
+					license {
+						name project_license_slug
+						url project_license_url
+					}
+				}
 
-        developers {
-          developer {
-            id project_developer
-            name project_developer
-            email project_developer_email
-          }
-        }
-      }
-    }
-  }
+				developers {
+					developer {
+						id project_developer
+						name project_developer
+						email project_developer_email
+					}
+				}
+			}
+		}
+	}
 }
