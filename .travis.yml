@@ -1,23 +1,19 @@
 dist: xenial
-language: java
-jdk:
-- openjdk8
-install: "./gradlew assemble -x signArchives"
-script:
-  - ./gradlew check
-after_success:
-- ./gradlew uploadArchives \
-    -PnexusUsername="${SONATYPE_USERNAME}" \
-    -PnexusPassword="${SONATYPE_PASSWORD} \
-    -Psigning.keyId=${GPG_KEY_ID} \
-    -Psigning.password=${GPG_KEY_PASSPHRASE} \
-    -Psigning.secretKeyRingFile=fake-creditcard.gpg"
 env:
   global:
     - COVERALLS_REPO_TOKEN=${REPO_TOKEN}
-    - GPG_KEY_LOCATION="fake-creditcard.gpg"
-    - ENCRYPTED_GPG_KEY_LOCATION="fake-creditcard.gpg.enc"
+    - GPG_KEY_LOCATION=".travis/fake-creditcard.gpg"
+    - ENCRYPTED_GPG_KEY_LOCATION=".travis/fake-creditcard.gpg.enc"
     - secure: SONATYPE_USERNAME
     - secure: SONATYPE_PASSWORD
     - secure: GPG_KEY_ID
     - secure: GPG_KEY_PASSPHRASE
+branches:
+  only:
+  - master
+language: java
+jdk:
+  - openjdk8
+before_install:
+  - chmod -R ug+x .travis
+  - .travis/install.sh
