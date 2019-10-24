@@ -14,7 +14,6 @@ branches:
 language: java
 jdk:
   - openjdk8
-before_script: cd fake-creditcard
 before_install:
-  - chmod -R ug+x fake-creditcard
+  - chmod -R ug+x install.sh
   - ./install.sh
