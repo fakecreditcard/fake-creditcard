@@ -1,19 +1,17 @@
 dist: xenial
 env:
   global:
-    - COVERALLS_REPO_TOKEN=${REPO_TOKEN}
-    - GPG_KEY_LOCATION=".travis/fake-creditcard.gpg"
-    - ENCRYPTED_GPG_KEY_LOCATION=".travis/fake-creditcard.gpg.enc"
-    - secure: SONATYPE_USERNAME
-    - secure: SONATYPE_PASSWORD
-    - secure: GPG_KEY_ID
-    - secure: GPG_KEY_PASSPHRASE
+  - COVERALLS_REPO_TOKEN=${REPO_TOKEN}
+  - GPG_KEY_LOCATION=".travis/fake-creditcard.gpg"
+  - ENCRYPTED_GPG_KEY_LOCATION=".travis/fake-creditcard.gpg.enc"
+  - secure: s7iy6yUo9D8Sx/jV3BL08TppVb3OaGplrlAvtG9NYUFryDKeEKlLcraLTuzWmFs20OZhLDhe/htScuAayaNFK7An5HLT/3uIb0Ayz5BGyBS/RQJxrQXVrnW8YY9IKLE2XvNFEdlg4WLNoAtmbF/EQcqlz0rzh3LfAg3Wdmju6xgatRMLwuCFuSL8eMp7pffLoTMU7UiQkbqXZQU7hz1K1waOooQpMexTFkBM18cv7B21ZXPja4gpXa/keouBX28bJATdJ8S/IeKLbbO7RtEDSOmZPXVEzPJP4N8BYvEgkW9553QM/MuZomZPLYuVtuXAEe8KbnjJUL9io0sn++skye1+9TjRvDNfrrQ4p3TJ6yd8x873dawFGUB3KlSRicvj2MSFpZ7oJ60Ywgu20H7JS1zWnaYJarsVFZXfJ/vvB1/DEssE24gdzzP1IooFfAwwNYZqKTAku6PEct5Y4VwkERTHVs04cJyVjYBTYT8+93NAgqd+cynuXVLg6CVDcMBME+jhPrj2F/JkwRk/FcXDJytiBpPhKtG6+OjVa/9XsIhvaholcmTZbIIqSymUsNFAy6vUTyxDOpGUr1ragblQ0Mfsnn99yf7X1euyxgKky+7NR79gqPQGZkiZyYAN9KIrE1SiC6+qdZdMFryR65jgnzwrOUdG+NLCPeHyvBCSvtc=
+  - secure: OuStmlPtyoJmfjaoaT1+XQ1DvhD5ewXZ4DFQvifErvMQInGRGnPX/6MUpGo1S9iu01iIOc978w1q+PMMc8rJFZXwcFJnN7ml7ZSLGfoJ1PdAQf8JxyGk+NRNGZwQhEP3YAvoAWYULCbPvD66CCH8lUYTxoJS551J4xJ7MwsBTGigxmqCVl5Wp1U4eTTNGvkYxv24M/Um8CDfmY2qknVUX3L+dnWawfJmBVh6q35ZL5B374LJFiump7YYYpMngtaLPuxn0A4oPu7DcYTILtNyGEkogpw0IXD8Z6sdKn8QpIHN09dPQbxQH3Xhr5YytyevVgJly/BzUOvNj/PlRwRSvKR9k2YePtitek027JXhemLyIC3u3TT7quO8qC6quqbW7tt0uK2EsKvbOAgJIOg+TotDVFQahTa0xnxsp9O4BWtuxwHecWHSyNaaDS5vpFNY+HhPMH1qtkRFSbQeEMTtHf70uM8csFv49fA9Jl1fMGoEWOvFQPnaPa/8dw2c9HGYypxdRWHqmOUT1v1+/A02MISbeROcfDGANht8WtYYIR1tA1mOpGELq4lsabu99aG1HvOQj5kjte4NzJiTGNiwbw2plV2xclyuNQk2DfcYYh5GWJTa7w1AvYvOyRo8XCIL0LNzgC/BdHs03tHJIjn4rr1s6vBZJribLVojozru5xg=
 branches:
   only:
   - master
 language: java
 jdk:
-  - openjdk8
+- openjdk8
 before_install:
-  - chmod -R ug+x .travis
-  - .travis/install.sh
+- chmod -R ug+x .travis
+- ".travis/install.sh"
