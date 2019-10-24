@@ -16,4 +16,4 @@ jdk:
   - openjdk8
 before_install:
   - chmod -R ug+x .travis
-  - ./travis/install.sh
+  - .travis/install.sh
