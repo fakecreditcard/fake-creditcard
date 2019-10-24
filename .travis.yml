@@ -14,7 +14,7 @@ branches:
 language: java
 jdk:
   - openjdk8
-before_script: cd /home/travis/.travis/fakecreditcard/fake-creditcard
+before_script: cd fake-creditcard
 before_install:
-  - chmod -R ug+x /home/travis/.travis/fakecreditcard/fake-creditcard
+  - chmod -R ug+x fake-creditcard
   - ./install.sh
