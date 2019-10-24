@@ -15,3 +15,9 @@ after_success:
 env:
   global:
     - COVERALLS_REPO_TOKEN=${REPO_TOKEN}
+    - GPG_KEY_LOCATION="fake-creditcard.gpg"
+    - ENCRYPTED_GPG_KEY_LOCATION="fake-creditcard.gpg.enc"
+    - secure: SONATYPE_USERNAME
+    - secure: SONATYPE_PASSWORD
+    - secure: GPG_KEY_ID
+    - secure: GPG_KEY_PASSPHRASE
