@@ -1,5 +1,6 @@
 apply plugin: 'maven'
 apply plugin: 'signing'
+apply plugin: 'maven-publish'
 
 signing {
 	sign configurations.archives
@@ -10,9 +11,15 @@ task sourcesJar(type: Jar) {
 	from sourceSets.main.allJava
 }
 
+javadoc.failOnError = false
 task javadocJar(type: Jar) {
 	archiveClassifier = 'javadoc'
 	from javadoc.destinationDir
+}
+
+artifacts {
+	archives sourcesJar
+	archives javadocJar
 }
 
 uploadArchives {
