@@ -16,5 +16,5 @@ jdk:
   - openjdk8
 before_script: cd project
 before_install:
-  - chmod -R ug+x .travis
-  - .travis/install.sh
+  - chmod -R ug+x project
+  - ./install.sh
