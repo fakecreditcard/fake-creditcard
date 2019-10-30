@@ -1,3 +1,3 @@
 chmod u+x gradlew
  
- ./gradlew assemble -x signArchives && ./gradlew check
+ ./gradlew assemble  -x signArchives
