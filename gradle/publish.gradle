@@ -1,6 +1,6 @@
+apply plugin: 'net.researchgate.release'
 apply plugin: 'maven'
 apply plugin: 'signing'
-
 
 signing{
 	sign configurations.archives
@@ -36,29 +36,29 @@ uploadArchives {
 			}
 
 			pom.project {
-				name project_name
+				name 'Fake Creditcard'
 				packaging 'jar'
-				description project_description
-				url project_url
+				description 'Generator of Creditcard Number for Dev tests'
+				url 'https://github.com/fakecreditcard/fake-creditcard'
 
 				scm {
-					connection project_scm
-					developerConnection project_scm
-					url project_url
+					connection 'scm:git://github.com/fakecreditcard/fake-creditcard.git'
+					developerConnection 'scm:git://github.com/fakecreditcard/fake-creditcard.git'
+					url 'https://github.com/fakecreditcard/fake-creditcard.git'
 				}
 
 				licenses {
 					license {
-						name project_license_slug
-						url project_license_url
+						name 'The Apache Software License, Version 2.0'
+						url 'https://github.com/fakecreditcard/fake-creditcard/blob/master/LICENSE'
 					}
 				}
 
 				developers {
 					developer {
-						id project_developer
-						name project_developer
-						email project_developer_email
+						id 'fernandogodoy'
+						name 'Fernando Godóy'
+						email 'fernandogodoy18@gmail.com'
 					}
 				}
 			}
@@ -67,20 +67,3 @@ uploadArchives {
 }
 
 
-gradle.taskGraph.whenReady { taskGraph ->
-	if (taskGraph.allTasks.any { it instanceof Sign }) {
-		allprojects { ext."signing.keyId" = System.getenv('GPG_KEY_ID') }
-		allprojects { ext."signing.secretKeyRingFile" = System.getenv('GPG_KEY_LOCATION') }
-		allprojects { ext."signing.password" = System.getenv('GPG_PASSPHRASE') }
-	}
-	// Do not sign archives by default (a local build without gpg keyring should succeed)
-	if (taskGraph.allTasks.any { it.name == 'build' || it.name == 'assemble' }) {
-		tasks.findAll { it.name == 'signArchives' || it.name == 'signDocsJar' || it.name == 'signTestJar' }.each { task ->
-			task.enabled = false
-		}
-	}
-}
-signing {
-	sign configurations.archives
-}
-build.dependsOn.remove(signArchives)
