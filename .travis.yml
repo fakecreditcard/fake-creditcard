@@ -12,11 +12,14 @@ env:
   - secure: QAl8Y2FepU20IJ9gdWk5fB1MIFRaa2ff2PukRVvk1IP49RMDjAZFAKNejt+tjmtTTphh14MiT45S6m5XSj2C0YomrshgGGDbhVU+m5Ypmj/RoDR9a+dxckEpsjkhzicQweo2hJ0m+efBs/mYjS537tacQ29qt7gW9GYpFafLSI6dykQWEqYCZOgqSwX5UgH9DhLBCwzHKrAidmkqNZCEJ6eCDcSUtc+5r0fIpxPeYLKI3eGGJ5fTgN1KcwLO4b9rxxYLr5sYiRJY1cF2Jivga1OaAVzWNoZDPTiRF45PB4dRQO8MY4hJs4uk44LeXkjI3u79Ebc2cFSTBMyHbRz+Kw0lro6INZ3sux0v6cR1HiYWXZLGSbeXRPVS5VPpafzF5ps1HqFIK1Z/v/9qPemqPxu9w6xdjPYTrVq31N3ff3qtmNSepOff17NW0YMKAbUN34x0doUkv45ZhxFpedHG0tpmk6+DmuSBiKS3FosGbXlFmv8CacQXtDMwJgr0C3UvLu7JzxKqGmKNwuQ8mlHhe7ER/GF+9T8GKO7XPp25YqXqVL0wb6s/q6euEkW5j3ds8hYvOVVHckjBITLm1V2O+S4rzQ5SSqLGnsafEu2anXx/wX+MFIolJqJNWPY7axuCGVy1WM7//43lR8cBnXQ/9uMwe7GeIGD1ni90Mzpa8GQ=
 language: java
 jdk:
-  - openjdk8
+- openjdk8
 install:
-  - chmod -R ug+x .travis
-  - ".travis/build.sh"
+- chmod -R ug+x .travis
+- ".travis/build.sh"
 after_success:
-  - chmod -R ug+x .travis
-  - ".travis/deploy.sh"
-  - ".travis/release.sh"
+- chmod -R ug+x .travis
+- ".travis/deploy.sh"
+- ".travis/release.sh"
+before_install:
+- openssl aes-256-cbc -K $encrypted_08ff517b19ac_key -iv $encrypted_08ff517b19ac_iv
+  -in fake-creditcard.gpg.enc -out .travis/fake-creditcard.gpg -d
