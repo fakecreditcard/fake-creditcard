@@ -14,9 +14,8 @@ public class Creditcard {
 	private String cvv;
 
 	private String expDate;
-	
-	private String expirationYear;
-	
-	private String expirationMonth;
 
+	private String expirationYear;
+
+	private String expirationMonth;
 }

@@ -1,10 +1,6 @@
 apply plugin: 'net.researchgate.release'
 apply plugin: 'maven'
-apply plugin: 'signing'
-
-signing{
-	sign configurations.archives
-}
+apply from: "./gradle/signing.gradle"
 
 task sourcesJar(type: Jar) {
 	archiveClassifier = 'sources'
