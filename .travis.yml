@@ -1,4 +1,4 @@
-dist: xenial
+os: windows
 env:
   global:
   - COVERALLS_REPO_TOKEN=${REPO_TOKEN}
