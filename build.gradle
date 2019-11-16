@@ -14,7 +14,6 @@ buildscript{
 
 	dependencies{
 		classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.6.1'
-		classpath 'net.researchgate:gradle-release:2.6.0'
 	}
 }
 

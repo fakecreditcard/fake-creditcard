@@ -1,4 +1,3 @@
-apply plugin: 'net.researchgate.release'
 apply plugin: 'maven'
 apply from: "./gradle/signing.gradle"
 
