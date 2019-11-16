@@ -21,4 +21,5 @@ after_success:
 - ".travis/deploy.sh"
 - ".travis/release.sh"
 before_install:
-- openssl aes-256-cbc -K $encrypted_08ff517b19ac_key -iv $encrypted_08ff517b19ac_iv -in $ENCRYPTED_GPG_KEY_LOCATION -out $GPG_KEY_LOCATION -d
+- openssl aes-256-cbc -K $encrypted_08ff517b19ac_key -iv $encrypted_08ff517b19ac_iv
+  -in fake-creditcard.gpg.enc -out .travis/fake-creditcard.gpg -d
