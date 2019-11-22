@@ -1,65 +1,136 @@
-apply plugin: 'maven'
-apply from: "./gradle/signing.gradle"
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
-task sourcesJar(type: Jar) {
-	archiveClassifier = 'sources'
+task sourceJar(type: Jar) {
+	classifier "sources"
 	from sourceSets.main.allJava
 }
 
-javadoc.failOnError = false
-task javadocJar(type: Jar) {
-	archiveClassifier = 'javadoc'
+task javadocJar(type: Jar, dependsOn: javadoc) {
+	classifier "javadoc"
 	from javadoc.destinationDir
 }
 
 artifacts {
-	archives sourcesJar
+	archives jar
+	archives sourceJar
 	archives javadocJar
 }
 
-uploadArchives {
+signing {
+	sign configurations.archives
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			customizePom(pom)
+			groupId 'com.github.fakecreditcard'
+			artifactId 'fake-creditcard'
+			version '1.0.0'
+
+			from components.java
+
+			pom.withXml {
+				def pomFile = file("${project.buildDir}/generated-pom.xml")
+				writeTo(pomFile)
+				def pomAscFile = signing.sign(pomFile).signatureFiles[0]
+				artifact(pomAscFile) {
+					classifier = null
+					extension = 'pom.asc'
+				}
+			}
+
+			artifact(sourceJar) {
+				classifier = 'sources'
+			}
+			artifact(javadocJar) {
+				classifier = 'javadoc'
+			}
+
+			// create the signed artifacts
+			project.tasks.signArchives.signatureFiles.each {
+				artifact(it) {
+					def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
+					if (matcher.find()) {
+						classifier = matcher.group(1)
+					} else {
+						classifier = null
+					}
+					extension = 'jar.asc'
+				}
+			}
+
+		}
+	}
+	
 	repositories {
-		mavenDeployer {
-			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-				authentication(userName: System.getenv('SONATYPE_USERNAME'), password: System.getenv('SONATYPE_PASSWORD'))
+		maven {
+			url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+			credentials {
+				username sonatypeUsername
+				password sonatypePassword
 			}
+		}
+	}
+}
 
-			snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-				authentication(userName: System.getenv('SONATYPE_USERNAME'), password: System.getenv('SONATYPE_PASSWORD'))
+def customizePom(pom) {
+	pom.withXml {
+		def root = asNode()
+
+		root.dependencies.removeAll { dep ->
+			dep.scope == "test"
+		}
+
+		root.children().last() + {
+			resolveStrategy = Closure.DELEGATE_FIRST
+
+			description 'Generator of Creditcard Number for Dev tests'
+			name 'Fake Creditcard'
+			url 'https://github.com/fakecreditcard/fake-creditcard'
+			organization {
+				name 'fakecreditcard'
+				url 'https://github.com/fakecreditcard'
 			}
-
-			pom.project {
-				name 'Fake Creditcard'
-				packaging 'jar'
-				description 'Generator of Creditcard Number for Dev tests'
-				url 'https://github.com/fakecreditcard/fake-creditcard'
-
-				scm {
-					connection 'scm:git://github.com/fakecreditcard/fake-creditcard.git'
-					developerConnection 'scm:git://github.com/fakecreditcard/fake-creditcard.git'
-					url 'https://github.com/fakecreditcard/fake-creditcard.git'
+			issueManagement {
+				system 'GitHub'
+				url 'https://github.com/fakecreditcard/issues'
+			}
+			licenses {
+				license {
+					name 'Apache License 2.0'
+					url 'https://github.com/fakecreditcard/fake-creditcard/blob/master/LICENSE'
 				}
-
-				licenses {
-					license {
-						name 'The Apache Software License, Version 2.0'
-						url 'https://github.com/fakecreditcard/fake-creditcard/blob/master/LICENSE'
-					}
-				}
-
-				developers {
-					developer {
-						id 'fernandogodoy'
-						name 'Fernando Godóy'
-						email 'fernandogodoy18@gmail.com'
-					}
+			}
+			scm {
+				connection 'scm:git://github.com/fakecreditcard/fake-creditcard.git'
+				developerConnection 'scm:git://github.com/fakecreditcard/fake-creditcard.git'
+				url 'https://github.com/fakecreditcard/fake-creditcard.git'
+			}
+			developers {
+				developer {
+					id 'fernandogodoy'
+					name 'Fernando Godóy'
+					email 'fernandogodoy18@gmail.com'
 				}
 			}
 		}
 	}
 }
 
-afterReleaseBuild.dependsOn uploadArchives
+model {
+	tasks.generatePomFileForMavenJavaPublication {
+		destination = file("$buildDir/generated-pom.xml")
+	}
+
+	tasks.publishMavenJavaPublicationToMavenLocal {
+		dependsOn project.tasks.signArchives
+	}
+	tasks.publishMavenJavaPublicationToMavenRepository {
+		dependsOn project.tasks.signArchives
+	}
+}
+
+
 
