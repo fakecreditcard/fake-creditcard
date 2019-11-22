@@ -34,7 +34,7 @@ public abstract class AbstractCardGenerator implements CreditCardGenerator {
 	/**
 	 * Verify if the multiply a digit is necessary for Luhn validation
 	 * 
-	 * @param index
+	 * @param index position of index
 	 * 
 	 * @return true if the brand condition for multiply number is valid
 	 */
