@@ -15,9 +15,9 @@ In pom.xml, add the following xml stanza between `<dependencies> ... </dependenc
 
 ```xml
 <dependency>
-    <groupId>...</groupId>
-    <artifactId>...</artifactId>
-    <version>...</version>
+  <groupId>com.github.fakecreditcard</groupId>
+  <artifactId>fake-creditcard</artifactId>
+  <version>1.0.0</version>
 </dependency>
 ```
 
@@ -25,7 +25,7 @@ For gradle users, add the following to your build.gradle file.
 
 ```groovy
 dependencies {
-    implementation '...:...:...'
+    implementation 'com.github.fakecreditcard:fake-creditcard:1.0.0'
 }
 
 ```
